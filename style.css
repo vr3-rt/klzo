@@ -21,6 +21,26 @@ body {
     padding: 15px;
 }
 
+/* Boot Screen Styles */
+#boot-screen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: #000;
+    z-index: 99999;
+    display: flex;
+    align-items: flex-start;
+    padding: 40px;
+    transition: opacity 0.5s ease;
+}
+
+#boot-text {
+    color: #ff003c;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    text-shadow: 0 0 8px #ff003c;
+}
+
 /* Custom Cyber Cursor */
 .cursor-dot {
     width: 6px; height: 6px;
@@ -195,11 +215,11 @@ body {
 .tagline {
     font-size: 0.7rem;
     letter-spacing: 2px;
-    color: #666;
+    color: #888;
     margin-top: 6px;
 }
 
-/* Bottom Grid Layout */
+/* Bottom Dashboard */
 .bottom-dashboard {
     display: flex;
     justify-content: space-between;
@@ -212,11 +232,11 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    min-width: 150px;
+    min-width: 160px;
 }
 
 #clock-time {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: bold;
     color: #fff;
     letter-spacing: 1px;
@@ -224,8 +244,17 @@ body {
 }
 
 #clock-date {
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     color: #888;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+#visitor-counter {
+    font-size: 0.6rem;
+    color: #ff003c;
+    border-top: 1px dashed rgba(255, 0, 60, 0.3);
+    padding-top: 5px;
     letter-spacing: 1px;
 }
 
