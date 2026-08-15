@@ -21,11 +21,6 @@
     <!-- Matrix Red Code Rain Canvas -->
     <canvas id="matrix-canvas"></canvas>
 
-    <!-- Background Video -->
-    <video autoplay muted loop id="bg-video">
-        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
-    </video>
-
     <!-- Dark Overlay & CRT Lines -->
     <div class="overlay"></div>
 
@@ -57,11 +52,21 @@
         </div>
     </div>
 
+    <!-- Live Ticker Bar -->
+    <div class="ticker-wrapper">
+        <div class="ticker-text">
+            <span>[SYS_ALERT: SECURE_CHANNEL_ACTIVE]</span> &bull; 
+            <span>NODE LOCATION: DZ_ALGERIA</span> &bull; 
+            <span>STATUS: ENCRYPTED // TR_SD v1.0</span> &bull; 
+            <span>WARNING: UNAUTHORIZED ACCESS WILL BE LOGGED</span>
+        </div>
+    </div>
+
     <!-- Main Center Hero Section -->
     <div class="hero-container">
         <div class="wings-wrapper">
             <svg class="wing-svg left-wing" viewBox="0 0 24 24" fill="#ff003c"><path d="M11.5 3C7 3 2 6.5 2 12c0 4 3 7 7 7 2.5 0 4.5-1 5.5-2.5C13 18 10 18 8 16c-2-2-1.5-5 1-7 2-1.5 4.5-2 7.5-1.5C15 5 13.5 3 11.5 3z"/></svg>
-            <h1 class="main-title">TR SD</h1>
+            <h1 class="main-title glitch" data-text="TR SD">TR SD</h1>
             <svg class="wing-svg right-wing" viewBox="0 0 24 24" fill="#ff003c"><path d="M12.5 3C17 3 22 6.5 22 12c0 4-3 7-7 7-2.5 0-4.5-1-5.5-2.5C11 18 14 18 16 16c2-2 1.5-5-1-7-2-1.5-4.5-2-7.5-1.5C9 5 10.5 3 12.5 3z"/></svg>
         </div>
         <p class="subtitle"><span id="typed-text"></span><span class="cursor-blink">|</span></p>
@@ -129,7 +134,6 @@
 
     <!-- Scripts -->
     <script>
-        // Terminal Logic
         const termInput = document.getElementById('terminal-input');
         const termOutput = document.getElementById('terminal-output');
 
@@ -165,7 +169,6 @@
             }
         });
 
-        // Boot Screen Logic
         const bootLogs = [
             "> INITIALIZING KERNEL_V3...",
             "> BYPASSING FIREWALL PROTOCOLS...",
@@ -190,7 +193,6 @@
         }
         window.addEventListener('DOMContentLoaded', runBootSequence);
 
-        // Random Cyber Quotes
         const quotes = [
             "\"Architect of Digital Madness\"",
             "\"In the void, code is the only truth\"",
@@ -200,7 +202,6 @@
         ];
         document.getElementById("cyber-quote").textContent = quotes[Math.floor(Math.random() * quotes.length)];
 
-        // Visitor Counter
         let visits = localStorage.getItem('tr_visits') || 1420;
         if (!sessionStorage.getItem('visited')) {
             visits++;
