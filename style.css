@@ -9,15 +9,11 @@ body {
     background-color: #030303;
     color: #ff003c;
     font-family: 'Courier New', Courier, monospace;
-    min-height: 100vh;
-    width: 100%;
-    overflow-x: hidden;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
     user-select: none;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 15px;
 }
 
 /* Background Video */
@@ -32,7 +28,7 @@ body {
     filter: brightness(0.25) contrast(1.4) hue-rotate(-20deg);
 }
 
-/* Overlay Line Effect */
+/* Scanline & Grid Background */
 .overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -43,35 +39,32 @@ body {
     pointer-events: none;
 }
 
-/* HUD Box Universal Styling */
+/* Universal HUD Box Styling */
 .hud-box {
-    background: rgba(10, 2, 3, 0.75);
-    border: 1px solid rgba(255, 0, 60, 0.4);
+    background: rgba(10, 2, 3, 0.65);
+    border: 1px solid rgba(255, 0, 60, 0.35);
     backdrop-filter: blur(8px);
     box-shadow: 0 0 15px rgba(255, 0, 60, 0.15);
     padding: 10px 14px;
     border-radius: 4px;
+    position: absolute;
     z-index: 10;
 }
 
-/* Header Grid Layout (Top Boxes) */
-.top-header-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    gap: 10px;
-    flex-wrap: wrap;
+/* Top Left Box */
+.top-left-box {
+    top: 25px;
+    left: 25px;
+    min-width: 180px;
 }
-
 .box-header {
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 0.75rem;
     letter-spacing: 1px;
+    margin-bottom: 4px;
 }
-
 .dot.red {
     width: 6px;
     height: 6px;
@@ -79,13 +72,19 @@ body {
     border-radius: 50%;
     box-shadow: 0 0 8px #ff003c;
 }
-
 .box-content p {
     font-size: 0.7rem;
     color: #888;
 }
 
-/* Audio Player Control */
+/* Top Right Music HUD */
+.top-right-music {
+    top: 25px;
+    right: 25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 #music-btn {
     background: transparent;
     border: none;
@@ -93,29 +92,37 @@ body {
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     font-family: inherit;
-    font-size: 0.75rem;
-    letter-spacing: 1px;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+}
+#music-btn:hover {
+    color: #fff;
+    text-shadow: 0 0 8px #ff003c;
 }
 
+/* Audio Wave Animation */
 .audio-wave {
     display: flex;
     align-items: flex-end;
     gap: 3px;
-    height: 12px;
+    height: 14px;
 }
-
 .audio-wave span {
-    width: 2px;
+    width: 3px;
     height: 100%;
     background: #ff003c;
     opacity: 0.3;
 }
-
 .audio-wave.playing span {
     animation: wave 1s infinite ease-in-out alternate;
 }
+.audio-wave.playing span:nth-child(1) { animation-delay: 0.1s; }
+.audio-wave.playing span:nth-child(2) { animation-delay: 0.3s; }
+.audio-wave.playing span:nth-child(3) { animation-delay: 0.2s; }
+.audio-wave.playing span:nth-child(4) { animation-delay: 0.4s; }
+.audio-wave.playing span:nth-child(5) { animation-delay: 0.15s; }
 
 @keyframes wave {
     0% { height: 20%; opacity: 0.4; }
@@ -124,101 +131,94 @@ body {
 
 /* Hero Center Box */
 .hero-container {
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
-    margin: 30px 0;
     width: 100%;
 }
-
 .wings-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 20px;
 }
-
 .main-title {
-    font-size: clamp(2.2rem, 8vw, 4.8rem);
+    font-size: 5rem;
     font-weight: 900;
-    letter-spacing: 4px;
+    letter-spacing: 12px;
     color: #fff;
-    text-shadow: 0 0 15px rgba(255, 0, 60, 0.8), 2px 2px 0px #ff003c;
-    word-break: break-word;
+    text-shadow: 0 0 20px rgba(255, 0, 60, 0.8), 3px 3px 0px #ff003c;
 }
-
 .wing {
-    font-size: clamp(1.2rem, 4vw, 2.2rem);
+    font-size: 2.5rem;
     filter: drop-shadow(0 0 10px #ff003c);
     opacity: 0.8;
 }
-
 .subtitle {
-    font-size: clamp(0.75rem, 2.5vw, 1.1rem);
-    letter-spacing: 2px;
+    font-size: 1.2rem;
+    letter-spacing: 6px;
     color: #ff003c;
-    margin-top: 8px;
-    text-shadow: 0 0 8px rgba(255, 0, 60, 0.5);
+    margin-top: 10px;
+    text-shadow: 0 0 10px rgba(255, 0, 60, 0.5);
 }
-
 .tagline {
-    font-size: 0.7rem;
-    letter-spacing: 2px;
+    font-size: 0.8rem;
+    letter-spacing: 4px;
     color: #666;
-    margin-top: 8px;
+    margin-top: 12px;
 }
 
-/* Bottom Grid Layout */
-.bottom-dashboard {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    width: 100%;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
+/* Bottom Left Widgets */
 .bottom-left-widgets {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    min-width: 160px;
+    gap: 12px;
 }
-
+.clock-box {
+    position: relative;
+    min-width: 180px;
+}
 #clock-time {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: #fff;
-    letter-spacing: 1px;
-    text-shadow: 0 0 8px #ff003c;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px #ff003c;
 }
-
 #clock-date {
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     color: #888;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+    margin-top: 2px;
 }
 
+/* Profile Card Widget */
 .profile-card {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    padding: 8px 12px;
 }
-
 .mini-avatar {
-    width: 32px;
-    height: 32px;
+    width: 38px;
+    height: 38px;
     border-radius: 4px;
     border: 1px solid #ff003c;
     object-fit: cover;
 }
-
 .status-indicator {
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     color: #ff003c;
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
 }
-
 .status-dot {
     width: 5px;
     height: 5px;
@@ -226,93 +226,66 @@ body {
     border-radius: 50%;
     box-shadow: 0 0 6px #ff003c;
 }
-
 .username {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: #fff;
     font-weight: bold;
 }
 
-/* Links Section */
+/* Bottom Center Links */
 .bottom-center-links {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
-    flex: 1;
-    min-width: 260px;
 }
-
 .links-hud {
     display: flex;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
+    gap: 12px;
 }
-
 .links-hud a {
     color: #fff;
     text-decoration: none;
-    font-size: 0.7rem;
-    padding: 6px 10px;
-    background: rgba(5, 1, 2, 0.85);
+    font-size: 0.75rem;
+    padding: 8px 14px;
+    background: rgba(5, 1, 2, 0.8);
     border: 1px solid rgba(255, 0, 60, 0.4);
     border-radius: 3px;
     letter-spacing: 1px;
     transition: all 0.3s ease;
 }
-
 .links-hud a:hover {
     background: #ff003c;
     color: #000;
-    box-shadow: 0 0 12px #ff003c;
+    box-shadow: 0 0 15px #ff003c;
+    font-weight: bold;
 }
-
 .footer-note {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     color: #555;
-    margin-top: 8px;
-    letter-spacing: 1.5px;
+    margin-top: 10px;
+    letter-spacing: 2px;
 }
 
-/* BPM Section */
+/* Bottom Right BPM Widget */
 .bottom-right-bpm {
-    min-width: 150px;
+    bottom: 30px;
+    right: 30px;
+    min-width: 180px;
 }
-
 .bpm-header {
     display: flex;
     justify-content: space-between;
-    font-size: 0.68rem;
-    margin-bottom: 4px;
+    font-size: 0.75rem;
+    margin-bottom: 6px;
 }
-
 .bpm-val {
     color: #fff;
     font-weight: bold;
 }
-
 .ecg-graph svg {
     width: 100%;
-    height: 25px;
-    filter: drop-shadow(0 0 4px #ff003c);
-}
-
-/* Responsive adjustments for Mobile */
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
-        overflow-y: auto;
-    }
-    
-    .top-header-wrapper {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .bottom-dashboard {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .bottom-left-widgets, .bottom-right-bpm, .bottom-center-links {
-        width: 100%;
-    }
+    height: 30px;
+    filter: drop-shadow(0 0 5px #ff003c);
 }
