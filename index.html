@@ -5,74 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SYSTEM.VOID // MOHAMED</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- Dark Red & Glitch Background Video -->
+    <!-- Background Video -->
     <video autoplay muted loop id="bg-video">
         <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
     </video>
 
-    <!-- Dark Atmospheric Horror Music -->
+    <!-- Dark Overlay & CRT Lines -->
+    <div class="overlay"></div>
+
+    <!-- Audio Player -->
     <audio id="bg-music" loop preload="auto">
         <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a221b2.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- CRT Scanline & Dark Overlay -->
-    <div class="overlay"></div>
-
-    <div class="container">
-        <!-- Audio Toggle Button -->
-        <button id="music-btn" onclick="toggleMusic()">[ 🔊 PLAY AUDIO ]</button>
-
-        <div class="sys-info">
-            <p>> SYSTEM DESTABILIZING...</p>
-            <p>> ERR_MEM_LEAK // 0x0000_BLOOD_CORRUPTION</p>
+    <!-- Top Left Status Box -->
+    <div class="hud-box top-left-box">
+        <div class="box-header">
+            <span class="dot red"></span>
+            <span class="title">SOUL.INTEGRITY</span>
         </div>
-
-        <h1>MOHAMED.VOID</h1>
-        <p>Architect Of Digital Madness | Gamer | Creator</p>
-        <p>↓ The void awaits you ↓</p>
-        <br>
-
-        <h2>> IDENTITY</h2>
-        <p>Comes from the underground. Forged in the dark.<br>
-        Not clean. Not corporate. Deliberate And Free.<br>
-        This is not just a portfolio — this is a document of existence.</p>
-        
-        <br>
-        <h2>> LINKS</h2>
-        <div class="links">
-            <a href="https://open.spotify.com/user/31stripkxmrpjbh3ucbml4ylcpna" target="_blank">[ SPOTIFY ]</a>
-            <a href="https://www.tiktok.com/@tr._.sd" target="_blank">[ TIKTOK ]</a>
-            <a href="https://discord.com/users/1420458027441590382" target="_blank">[ DISCORD ]</a>
-            <a href="https://steamcommunity.com/profiles/76561198728B32429/" target="_blank">[ STEAM ]</a>
-            <a href="https://github.com/vr3-rt" target="_blank">[ GITHUB ]</a>
-        </div>
-
-        <br><br>
-        <h2>> RELICS</h2>
-        <div class="badges">
-            <img src="https://cyber.dabamos.de/88x31/steam.gif" alt="Steam">
-            <img src="https://cyber.dabamos.de/88x31/linux.gif" alt="Linux">
-            <img src="https://cyber.dabamos.de/88x31/firefox.gif" alt="Firefox">
-            <img src="https://cyber.dabamos.de/88x31/github.gif" alt="GitHub">
+        <div class="box-content">
+            <p>> ALL_IS_DARK // 0x3070</p>
         </div>
     </div>
 
-    <!-- Audio Control Script -->
+    <!-- Top Right Music Controller HUD -->
+    <div class="hud-box top-right-music">
+        <button id="music-btn" onclick="toggleMusic()">
+            <i class="fa-solid fa-play" id="play-icon"></i>
+            <span id="song-title">419 & HEARTBREAK</span>
+        </button>
+        <div class="audio-wave">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+
+    <!-- Main Center Hero Section -->
+    <div class="hero-container">
+        <div class="wings-wrapper">
+            <span class="wing left-wing">🪽</span>
+            <h1 class="main-title">MOHAMED</h1>
+            <span class="wing right-wing">🪽</span>
+        </div>
+        <p class="subtitle">ARCHITECT OF DIGITAL MADNESS</p>
+        <p class="tagline">Liberate . Digital . Dark</p>
+    </div>
+
+    <!-- Bottom Left Widgets: Clock & Status -->
+    <div class="bottom-left-widgets">
+        <!-- Live Clock -->
+        <div class="hud-box clock-box">
+            <div id="clock-time">00:00:00</div>
+            <div id="clock-date">SAT 15 AUG 2026</div>
+        </div>
+
+        <!-- User Profile Card -->
+        <div class="hud-box profile-card">
+            <img src="https://i.pinimg.com/736x/21/80/ce/2180ce87e07b539a444a142dd23f03b5.jpg" alt="Avatar" class="mini-avatar">
+            <div class="profile-details">
+                <div class="status-indicator"><span class="status-dot"></span> online</div>
+                <div class="username">m.snake</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Center Links HUD -->
+    <div class="bottom-center-links">
+        <div class="links-hud">
+            <a href="https://open.spotify.com/user/31stripkxmrpjbh3ucbml4ylcpna" target="_blank"><i class="fa-brands fa-spotify"></i> SPOTIFY</a>
+            <a href="https://www.tiktok.com/@tr._.sd" target="_blank"><i class="fa-brands fa-tiktok"></i> TIKTOK</a>
+            <a href="https://discord.com/users/1420458027441590382" target="_blank"><i class="fa-brands fa-discord"></i> DISCORD</a>
+            <a href="https://steamcommunity.com/profiles/76561198728B32429/" target="_blank"><i class="fa-brands fa-steam"></i> STEAM</a>
+            <a href="https://github.com/vr3-rt" target="_blank"><i class="fa-brands fa-github"></i> GITHUB</a>
+        </div>
+        <p class="footer-note">✝ Darkness awaits you ✝</p>
+    </div>
+
+    <!-- Bottom Right Heart BPM Widget -->
+    <div class="hud-box bottom-right-bpm">
+        <div class="bpm-header">
+            <span>HEART</span>
+            <span class="bpm-val">BPM 64</span>
+        </div>
+        <div class="ecg-graph">
+            <svg viewBox="0 0 150 40">
+                <path d="M 0,20 L 30,20 L 35,5 L 40,35 L 45,10 L 50,25 L 55,20 L 150,20" fill="none" stroke="#ff003c" stroke-width="1.5" />
+            </svg>
+        </div>
+    </div>
+
+    <!-- JavaScript logic -->
     <script>
+        // Audio Toggle Logic
         function toggleMusic() {
             var music = document.getElementById("bg-music");
-            var btn = document.getElementById("music-btn");
+            var icon = document.getElementById("play-icon");
+            var wave = document.querySelector(".audio-wave");
+            
             if (music.paused) {
                 music.play();
-                btn.innerHTML = "[ 🔇 MUTE AUDIO ]";
+                icon.className = "fa-solid fa-pause";
+                wave.classList.add("playing");
             } else {
                 music.pause();
-                btn.innerHTML = "[ 🔊 PLAY AUDIO ]";
+                icon.className = "fa-solid fa-play";
+                wave.classList.remove("playing");
             }
         }
+
+        // Live Clock Logic
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock-time').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
     </script>
 </body>
 </html>
