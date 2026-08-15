@@ -65,8 +65,24 @@
             <svg class="wing-svg right-wing" viewBox="0 0 24 24" fill="#ff003c"><path d="M12.5 3C17 3 22 6.5 22 12c0 4-3 7-7 7-2.5 0-4.5-1-5.5-2.5C11 18 14 18 16 16c2-2 1.5-5-1-7-2-1.5-4.5-2-7.5-1.5C9 5 10.5 3 12.5 3z"/></svg>
         </div>
         <p class="subtitle"><span id="typed-text"></span><span class="cursor-blink">|</span></p>
-        <!-- Random Cyber Quote Generator -->
         <p class="tagline" id="cyber-quote">"Liberate . Digital . Dark"</p>
+    </div>
+
+    <!-- Interactive Terminal Box Section -->
+    <div class="terminal-section">
+        <div class="hud-box terminal-box">
+            <div class="terminal-header">
+                <span><i class="fa-solid fa-terminal"></i> TR_CLI v1.0.4</span>
+                <span class="term-hint">Type 'help'</span>
+            </div>
+            <div id="terminal-output">
+                <p>System online. Type commands below (e.g., 'help', 'socials', 'status').</p>
+            </div>
+            <div class="terminal-input-line">
+                <span>tr@sd:~$</span>
+                <input type="text" id="terminal-input" autocomplete="off" spellcheck="false">
+            </div>
+        </div>
     </div>
 
     <!-- Bottom Dashboard -->
@@ -75,7 +91,6 @@
             <div class="hud-box clock-box">
                 <div id="clock-time">00:00:00</div>
                 <div id="clock-date">SAT 15 AUG 2026</div>
-                <!-- Visitor Counter -->
                 <div id="visitor-counter"><i class="fa-solid fa-eye"></i> NODES: <span id="visit-count">1337</span></div>
             </div>
 
@@ -114,6 +129,42 @@
 
     <!-- Scripts -->
     <script>
+        // Terminal Logic
+        const termInput = document.getElementById('terminal-input');
+        const termOutput = document.getElementById('terminal-output');
+
+        termInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const cmd = termInput.value.trim().toLowerCase();
+                let response = "";
+
+                if (cmd === 'help') {
+                    response = "Available commands: help, socials, status, clear, whoami";
+                } else if (cmd === 'socials') {
+                    response = "Spotify, TikTok, Discord, Steam, GitHub (Check links bar below)";
+                } else if (cmd === 'status') {
+                    response = "System Integrity: 100% | Ping: 14ms | Node: Algeria (DZ)";
+                } else if (cmd === 'whoami') {
+                    response = "TR SD - Architect of Digital Madness";
+                } else if (cmd === 'clear') {
+                    termOutput.innerHTML = "";
+                    termInput.value = "";
+                    return;
+                } else if (cmd === '') {
+                    response = "";
+                } else {
+                    response = `command not found: ${cmd}. Type 'help' for options.`;
+                }
+
+                termOutput.innerHTML += `<div><span style="color:#888;">tr@sd:~$</span> ${termInput.value}</div>`;
+                if (response) {
+                    termOutput.innerHTML += `<div style="color:#ff003c; margin-bottom:4px;">${response}</div>`;
+                }
+                termInput.value = "";
+                termOutput.scrollTop = termOutput.scrollHeight;
+            }
+        });
+
         // Boot Screen Logic
         const bootLogs = [
             "> INITIALIZING KERNEL_V3...",
@@ -129,12 +180,12 @@
             if (bootIndex < bootLogs.length) {
                 bootTextEl.innerHTML += bootLogs[bootIndex] + "<br>";
                 bootIndex++;
-                setTimeout(runBootSequence, 400);
+                setTimeout(runBootSequence, 350);
             } else {
                 setTimeout(() => {
                     bootScreenEl.style.opacity = "0";
                     setTimeout(() => bootScreenEl.style.display = "none", 500);
-                }, 500);
+                }, 400);
             }
         }
         window.addEventListener('DOMContentLoaded', runBootSequence);
@@ -149,7 +200,7 @@
         ];
         document.getElementById("cyber-quote").textContent = quotes[Math.floor(Math.random() * quotes.length)];
 
-        // Visitor Counter (Increments locally per session/visit)
+        // Visitor Counter
         let visits = localStorage.getItem('tr_visits') || 1420;
         if (!sessionStorage.getItem('visited')) {
             visits++;
@@ -206,7 +257,7 @@
                 setTimeout(typeWriter, 100);
             }
         }
-        setTimeout(typeWriter, 2000); // Start after boot screen
+        setTimeout(typeWriter, 1800);
 
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
