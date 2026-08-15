@@ -4,91 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SYSTEM.VOID // LOKO</title>
-    <style>
-        /* Base Dark Theme Setup */
-        body {
-            background-color: #050505;
-            color: #ff003c;
-            font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            padding: 40px;
-            overflow-x: hidden;
-        }
-
-        /* Scanlines Overlay Effect */
-        body::before {
-            content: " ";
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 2;
-            background-size: 100% 2px, 3px 100%;
-            pointer-events: none;
-        }
-
-        h1 {
-            font-size: 3rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            text-shadow: 2px 2px 0px rgba(255, 0, 0, 0.7);
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            border-bottom: 1px solid #ff003c;
-            padding-bottom: 5px;
-            display: inline-block;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 3;
-        }
-
-        .sys-info {
-            border: 1px solid #333;
-            padding: 15px;
-            margin-bottom: 20px;
-            background: rgba(10, 10, 10, 0.8);
-        }
-
-        /* Retro Badges Setup */
-        .badges img {
-            width: 88px;
-            height: 31px;
-            image-rendering: pixelated;
-            margin: 5px;
-            border: 1px solid #ff003c;
-        }
-        
-        .links a {
-            color: #fff;
-            text-decoration: none;
-            display: inline-block;
-            margin-right: 15px;
-            border-bottom: 1px solid #ff003c;
-            transition: 0.3s;
-            padding: 5px 10px;
-        }
-        
-        .links a:hover {
-            background-color: #ff003c;
-            color: #000;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <!-- Dark Red & Glitch Background Video -->
+    <video autoplay muted loop id="bg-video">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-red-and-blue-abstract-digital-lights-43224-large.mp4" type="video/mp4">
+    </video>
+
+    <!-- Dark Atmospheric Horror Music -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://assets.mixkit.co/music/preview/mixkit-game-level-music-689.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- CRT Scanline & Dark Overlay -->
+    <div class="overlay"></div>
+
     <div class="container">
+        <!-- Audio Toggle Button -->
+        <button id="music-btn" onclick="toggleMusic()">[ 🔊 PLAY AUDIO ]</button>
+
         <div class="sys-info">
             <p>> SYSTEM DESTABILIZING...</p>
-            <p>> ERR_MEM_LEAK // 0x0000</p>
+            <p>> ERR_MEM_LEAK // 0x0000_BLOOD_CORRUPTION</p>
         </div>
 
         <h1>LOKO.VOID</h1>
@@ -106,7 +45,7 @@
         <div class="links">
             <a href="https://discord.com" target="_blank">[ DISCORD ]</a>
             <a href="https://steamcommunity.com" target="_blank">[ STEAM ]</a>
-            <a href="https://github.com" target="_blank">[ GITHUB ]</a>
+            <a href="https://github.com/vr3-rt" target="_blank">[ GITHUB ]</a>
             <a href="https://youtube.com" target="_blank">[ YOUTUBE ]</a>
         </div>
 
@@ -119,5 +58,20 @@
             <img src="https://cyber.dabamos.de/88x31/github.gif" alt="GitHub">
         </div>
     </div>
+
+    <!-- Audio Script -->
+    <script>
+        function toggleMusic() {
+            var music = document.getElementById("bg-music");
+            var btn = document.getElementById("music-btn");
+            if (music.paused) {
+                music.play();
+                btn.innerHTML = "[ 🔇 MUTE AUDIO ]";
+            } else {
+                music.pause();
+                btn.innerHTML = "[ 🔊 PLAY AUDIO ]";
+            }
+        }
+    </script>
 </body>
 </html>
