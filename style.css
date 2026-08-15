@@ -19,7 +19,6 @@ body {
     flex-direction: column;
     justify-content: space-between;
     padding: 15px;
-    padding-bottom: 35px; /* مساحة لشريط البيانات السفلي */
 }
 
 /* Boot Screen Styles */
@@ -160,7 +159,7 @@ body {
     100% { height: 100%; opacity: 1; box-shadow: 0 0 8px #ff003c; }
 }
 
-/* Live Ticker Bar */
+/* Live Ticker Styles */
 .ticker-wrapper {
     width: 100%;
     background: rgba(10, 2, 3, 0.9);
@@ -188,128 +187,102 @@ body {
     100% { transform: translate3d(-100%, 0, 0); }
 }
 
-/* Main Layout: Center Manifesto & Right Sidebar */
-.main-content-layout {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    position: relative;
-    width: 100%;
+/* Hero Center Box */
+.hero-container {
+    text-align: center;
     margin: 10px 0;
-    gap: 20px;
+    width: 100%;
 }
 
-/* Manifesto / Center Section Styles */
-.custom-manifesto {
-    flex: 1;
-    max-width: 650px;
-    margin: 0 auto;
-    text-align: left;
-    background: rgba(5, 1, 2, 0.75);
-    border: 1px solid rgba(255, 0, 60, 0.3);
-    padding: 18px;
-    border-radius: 4px;
-    backdrop-filter: blur(5px);
-}
-
-.manifesto-header {
+.wings-wrapper {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.7rem;
-    color: #ff003c;
-    border-bottom: 1px dashed rgba(255, 0, 60, 0.3);
-    padding-bottom: 6px;
-    margin-bottom: 10px;
-}
-
-.sub-leak {
-    margin-left: auto;
-    color: #555;
-    font-size: 0.65rem;
-}
-
-.manifesto-text p {
-    font-size: 0.75rem;
-    color: #bbb;
-    line-height: 1.6;
-    margin-bottom: 10px;
-}
-
-.highlight-red {
-    color: #ff003c;
-    font-weight: bold;
-    text-shadow: 0 0 5px rgba(255, 0, 60, 0.4);
-}
-
-.manifesto-conclusion {
-    border-top: 1px solid rgba(255, 0, 60, 0.2);
-    padding-top: 8px;
-    margin-top: 8px;
-    color: #fff;
-}
-
-/* Right Sidebar Stats Styles (OMS, 1337, INSANE) */
-.right-sidebar-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    text-align: right;
-    min-width: 180px;
-    z-index: 5;
-}
-
-.stat-item .stat-symbol, .stat-item .stat-title {
-    font-size: 1.4rem;
-    font-weight: 900;
-    color: #ff003c;
-    text-shadow: 0 0 10px rgba(255, 0, 60, 0.6);
-}
-
-.red-glow {
-    color: #ff003c;
-    text-shadow: 0 0 12px #ff003c;
-}
-
-.stat-item .stat-label {
-    font-size: 0.55rem;
-    color: #777;
-    letter-spacing: 1px;
-    max-width: 160px;
-    margin-left: auto;
-    line-height: 1.4;
-}
-
-/* Mini Apps Grid (Bottom Center) */
-.mini-apps-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    margin: 8px 0;
-}
-
-.app-row, .app-row-icons, .app-row-widgets {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
     justify-content: center;
+    gap: 15px;
+    white-space: nowrap;
 }
 
-.app-badge, .mini-icon, .micro-widget {
-    background: rgba(10, 2, 3, 0.85);
-    border: 1px solid rgba(255, 0, 60, 0.35);
+.main-title {
+    font-size: clamp(2.2rem, 7vw, 4.2rem);
+    font-weight: 900;
+    letter-spacing: 4px;
     color: #fff;
-    font-size: 0.6rem;
-    padding: 3px 8px;
-    border-radius: 3px;
-    text-decoration: none;
-    letter-spacing: 1px;
+    text-shadow: 0 0 15px rgba(255, 0, 60, 0.8), 2px 2px 0px #ff003c;
+    display: inline-block;
 }
 
-.online-tag {
+/* Glitch Effect for Main Title */
+.glitch {
+    position: relative;
+    color: #fff;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip: rect(0, 0, 0, 0);
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff003c;
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 #00ffff, 0 2px #ff003c;
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+    0% { clip: rect(20px, 9999px, 40px, 0); }
+    20% { clip: rect(60px, 9999px, 15px, 0); }
+    40% { clip: rect(10px, 9999px, 50px, 0); }
+    60% { clip: rect(80px, 9999px, 30px, 0); }
+    80% { clip: rect(30px, 9999px, 70px, 0); }
+    100% { clip: rect(50px, 9999px, 20px, 0); }
+}
+
+@keyframes glitch-anim-2 {
+    0% { clip: rect(10px, 9999px, 60px, 0); }
+    20% { clip: rect(50px, 9999px, 20px, 0); }
+    40% { clip: rect(30px, 9999px, 80px, 0); }
+    60% { clip: rect(70px, 9999px, 10px, 0); }
+    80% { clip: rect(20px, 9999px, 40px, 0); }
+    100% { clip: rect(60px, 9999px, 90px, 0); }
+}
+
+.wing-svg {
+    width: clamp(25px, 5vw, 40px);
+    height: clamp(25px, 5vw, 40px);
+    filter: drop-shadow(0 0 8px #ff003c);
+    flex-shrink: 0;
+}
+
+.left-wing { transform: scaleX(-1); }
+
+.subtitle {
+    font-size: clamp(0.7rem, 2vw, 1rem);
+    letter-spacing: 2px;
     color: #ff003c;
-    font-size: 0.55rem;
+    margin-top: 6px;
+    text-shadow: 0 0 8px rgba(255, 0, 60, 0.5);
+}
+
+.cursor-blink { animation: blink 0.7s infinite; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+.tagline {
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    color: #888;
+    margin-top: 4px;
 }
 
 /* Terminal Section Styles */
@@ -343,7 +316,7 @@ body {
 
 #terminal-output {
     font-size: 0.65rem;
-    max-height: 55px;
+    max-height: 60px;
     overflow-y: auto;
     color: #ccc;
     margin-bottom: 6px;
@@ -488,32 +461,12 @@ body {
 .bpm-val { color: #fff; font-weight: bold; }
 .ecg-graph svg { width: 100%; height: 20px; filter: drop-shadow(0 0 4px #ff003c); }
 
-/* Data Stream Marquee Bar (Bottom) */
-.data-stream {
-    position: fixed;
-    bottom: 0; left: 0;
-    width: 100%;
-    height: 22px;
-    background: rgba(0, 0, 0, 0.9);
-    border-top: 1px solid rgba(255, 0, 60, 0.4);
-    color: #ff003c;
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    overflow: hidden;
-    white-space: nowrap;
-    z-index: 9999;
-}
-
-.data-stream marquee {
-    padding-top: 3px;
-}
-
-/* Phone Responsiveness */
+/* Phone Responsiveness Setup */
 @media (max-width: 768px) {
     body {
         justify-content: flex-start;
-        gap: 12px;
-        padding: 10px;
+        gap: 15px;
+        padding: 12px;
         overflow-y: auto;
     }
 
@@ -522,18 +475,12 @@ body {
         align-items: stretch;
     }
 
-    .main-content-layout {
-        flex-direction: column;
-        align-items: stretch;
+    .hero-container {
+        margin: 10px 0;
     }
 
-    .right-sidebar-stats {
-        text-align: left;
-        align-items: flex-start;
-    }
-
-    .right-sidebar-stats .stat-item .stat-label {
-        margin-left: 0;
+    .terminal-section {
+        width: 100%;
     }
 
     .bottom-dashboard {
