@@ -1,0 +1,128 @@
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #050505;
+}
+::-webkit-scrollbar-thumb {
+    background: #ff003c;
+}
+
+/* Base Setup */
+body {
+    background-color: #050505;
+    color: #ff003c;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 40px 20px;
+    overflow-x: hidden;
+}
+
+/* Scanlines Overlay Effect */
+body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 99;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
+
+/* Container */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 3;
+    border: 1px solid #1a1a1a;
+    padding: 30px;
+    background: rgba(10, 10, 10, 0.95);
+    box-shadow: 0 0 20px rgba(255, 0, 60, 0.1);
+}
+
+/* System Info Box */
+.sys-info {
+    border: 1px solid #ff003c;
+    padding: 15px;
+    margin-bottom: 25px;
+    background: rgba(255, 0, 60, 0.05);
+}
+
+.sys-info p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #ff003c;
+}
+
+/* Typography */
+h1 {
+    font-size: 3rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0px rgba(255, 0, 0, 0.7);
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #ff003c;
+    padding-bottom: 5px;
+    display: inline-block;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+p {
+    color: #cccccc;
+    line-height: 1.6;
+}
+
+/* Retro Links */
+.links {
+    margin-top: 10px;
+}
+
+.links a {
+    color: #ffffff;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ff003c;
+    transition: all 0.3s ease;
+    padding: 8px 14px;
+    background: #000000;
+}
+
+.links a:hover {
+    background-color: #ff003c;
+    color: #000000;
+    box-shadow: 0 0 10px #ff003c;
+}
+
+/* Retro Badges */
+.badges {
+    margin-top: 10px;
+}
+
+.badges img {
+    width: 88px;
+    height: 31px;
+    image-rendering: pixelated;
+    margin: 5px;
+    border: 1px solid #ff003c;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.badges img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 8px #ff003c;
+}
