@@ -52,13 +52,13 @@
         </div>
     </div>
 
-    <!-- Live Ticker Bar (Updated) -->
+    <!-- Live Ticker Bar -->
     <div class="ticker-wrapper">
         <div class="ticker-text">
             <span>[SYS_ALERT: SECURE_CHANNEL_ACTIVE]</span> &bull; 
+            <span>NODE LOCATION: DZ_ALGERIA</span> &bull; 
             <span>STATUS: ENCRYPTED // TR_SD v1.0</span> &bull; 
-            <span>WARNING: UNAUTHORIZED ACCESS WILL BE LOGGED</span> &bull; 
-            <span>SYSTEM_CORE_INTEGRITY: 100%</span>
+            <span>WARNING: UNAUTHORIZED ACCESS WILL BE LOGGED</span>
         </div>
     </div>
 
@@ -132,7 +132,7 @@
         </div>
     </div>
 
-    <!-- Scripts (Same as previous) -->
+    <!-- Scripts -->
     <script>
         const termInput = document.getElementById('terminal-input');
         const termOutput = document.getElementById('terminal-output');
@@ -141,40 +141,155 @@
             if (e.key === 'Enter') {
                 const cmd = termInput.value.trim().toLowerCase();
                 let response = "";
-                if (cmd === 'help') response = "Available commands: help, socials, status, clear, whoami";
-                else if (cmd === 'socials') response = "Spotify, TikTok, Discord, Steam, GitHub (Check links bar below)";
-                else if (cmd === 'status') response = "System Integrity: 100% | Ping: 14ms | Cryptography: Active";
-                else if (cmd === 'whoami') response = "TR SD - Architect of Digital Madness";
-                else if (cmd === 'clear') { termOutput.innerHTML = ""; termInput.value = ""; return; }
-                else if (cmd !== '') response = `command not found: ${cmd}.`;
-                
+
+                if (cmd === 'help') {
+                    response = "Available commands: help, socials, status, clear, whoami";
+                } else if (cmd === 'socials') {
+                    response = "Spotify, TikTok, Discord, Steam, GitHub (Check links bar below)";
+                } else if (cmd === 'status') {
+                    response = "System Integrity: 100% | Ping: 14ms | Node: Algeria (DZ)";
+                } else if (cmd === 'whoami') {
+                    response = "TR SD - Architect of Digital Madness";
+                } else if (cmd === 'clear') {
+                    termOutput.innerHTML = "";
+                    termInput.value = "";
+                    return;
+                } else if (cmd === '') {
+                    response = "";
+                } else {
+                    response = `command not found: ${cmd}. Type 'help' for options.`;
+                }
+
                 termOutput.innerHTML += `<div><span style="color:#888;">tr@sd:~$</span> ${termInput.value}</div>`;
-                if (response) termOutput.innerHTML += `<div style="color:#ff003c; margin-bottom:4px;">${response}</div>`;
+                if (response) {
+                    termOutput.innerHTML += `<div style="color:#ff003c; margin-bottom:4px;">${response}</div>`;
+                }
                 termInput.value = "";
                 termOutput.scrollTop = termOutput.scrollHeight;
             }
         });
 
-        // Other scripts remain same...
+        const bootLogs = [
+            "> INITIALIZING KERNEL_V3...",
+            "> BYPASSING FIREWALL PROTOCOLS...",
+            "> LOADING NEURAL INTERFACE...",
+            "> ACCESS GRANTED. WELCOME TR SD."
+        ];
+        let bootIndex = 0;
+        const bootTextEl = document.getElementById("boot-text");
+        const bootScreenEl = document.getElementById("boot-screen");
+
+        function runBootSequence() {
+            if (bootIndex < bootLogs.length) {
+                bootTextEl.innerHTML += bootLogs[bootIndex] + "<br>";
+                bootIndex++;
+                setTimeout(runBootSequence, 350);
+            } else {
+                setTimeout(() => {
+                    bootScreenEl.style.opacity = "0";
+                    setTimeout(() => bootScreenEl.style.display = "none", 500);
+                }, 400);
+            }
+        }
+        window.addEventListener('DOMContentLoaded', runBootSequence);
+
+        const quotes = [
+            "\"Architect of Digital Madness\"",
+            "\"In the void, code is the only truth\"",
+            "\"System breach in progress...\"",
+            "\"Embrace the digital darkness\"",
+            "\"Lost in the crimson matrix\""
+        ];
+        document.getElementById("cyber-quote").textContent = quotes[Math.floor(Math.random() * quotes.length)];
+
+        let visits = localStorage.getItem('tr_visits') || 1420;
+        if (!sessionStorage.getItem('visited')) {
+            visits++;
+            localStorage.setItem('tr_visits', visits);
+            sessionStorage.setItem('visited', 'true');
+        }
+        document.getElementById("visit-count").textContent = visits;
+
+        function toggleMusic() {
+            var music = document.getElementById("bg-music");
+            var icon = document.getElementById("play-icon");
+            var wave = document.querySelector(".audio-wave");
+            
+            if (music.paused) {
+                music.play();
+                icon.className = "fa-solid fa-pause";
+                wave.classList.add("playing");
+            } else {
+                music.pause();
+                icon.className = "fa-solid fa-play";
+                wave.classList.remove("playing");
+            }
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock-time').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 250, fill: "forwards" });
+        });
+
+        const textToType = "TR SD SYSTEMS";
+        let typeIndex = 0;
+        function typeWriter() {
+            if (typeIndex < textToType.length) {
+                document.getElementById("typed-text").innerHTML += textToType.charAt(typeIndex);
+                typeIndex++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        setTimeout(typeWriter, 1800);
+
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
         const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン0123456789ABCDEF';
         const fontSize = 14;
         const columns = canvas.width / fontSize;
         const rainDrops = Array.from({ length: columns }).fill(1);
+
         function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#ff003c'; ctx.font = fontSize + 'px monospace';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#ff003c';
+            ctx.font = fontSize + 'px monospace';
+
             for (let i = 0; i < rainDrops.length; i++) {
                 const text = katakana.charAt(Math.floor(Math.random() * katakana.length));
                 ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) rainDrops[i] = 0;
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
                 rainDrops[i]++;
             }
         }
         setInterval(drawMatrix, 33);
-        // ... (Include rest of scripts from before)
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
     </script>
 </body>
 </html>
