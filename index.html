@@ -9,6 +9,11 @@
 </head>
 <body>
 
+    <!-- Terminal Boot Screen -->
+    <div id="boot-screen">
+        <div id="boot-text"></div>
+    </div>
+
     <!-- Custom Cyber Cursor -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
@@ -60,7 +65,8 @@
             <svg class="wing-svg right-wing" viewBox="0 0 24 24" fill="#ff003c"><path d="M12.5 3C17 3 22 6.5 22 12c0 4-3 7-7 7-2.5 0-4.5-1-5.5-2.5C11 18 14 18 16 16c2-2 1.5-5-1-7-2-1.5-4.5-2-7.5-1.5C9 5 10.5 3 12.5 3z"/></svg>
         </div>
         <p class="subtitle"><span id="typed-text"></span><span class="cursor-blink">|</span></p>
-        <p class="tagline">Liberate . Digital . Dark</p>
+        <!-- Random Cyber Quote Generator -->
+        <p class="tagline" id="cyber-quote">"Liberate . Digital . Dark"</p>
     </div>
 
     <!-- Bottom Dashboard -->
@@ -69,10 +75,11 @@
             <div class="hud-box clock-box">
                 <div id="clock-time">00:00:00</div>
                 <div id="clock-date">SAT 15 AUG 2026</div>
+                <!-- Visitor Counter -->
+                <div id="visitor-counter"><i class="fa-solid fa-eye"></i> NODES: <span id="visit-count">1337</span></div>
             </div>
 
             <div class="hud-box profile-card">
-                <!-- Pyramid Head Avatar -->
                 <img src="https://i.pinimg.com/736x/f8/a0/02/f8a002bcbc6f3d994e7fa07bb88bb258.jpg" alt="Pyramid Head Avatar" class="mini-avatar">
                 <div class="profile-details">
                     <div class="status-indicator"><span class="status-dot"></span> online</div>
@@ -107,6 +114,50 @@
 
     <!-- Scripts -->
     <script>
+        // Boot Screen Logic
+        const bootLogs = [
+            "> INITIALIZING KERNEL_V3...",
+            "> BYPASSING FIREWALL PROTOCOLS...",
+            "> LOADING NEURAL INTERFACE...",
+            "> ACCESS GRANTED. WELCOME TR SD."
+        ];
+        let bootIndex = 0;
+        const bootTextEl = document.getElementById("boot-text");
+        const bootScreenEl = document.getElementById("boot-screen");
+
+        function runBootSequence() {
+            if (bootIndex < bootLogs.length) {
+                bootTextEl.innerHTML += bootLogs[bootIndex] + "<br>";
+                bootIndex++;
+                setTimeout(runBootSequence, 400);
+            } else {
+                setTimeout(() => {
+                    bootScreenEl.style.opacity = "0";
+                    setTimeout(() => bootScreenEl.style.display = "none", 500);
+                }, 500);
+            }
+        }
+        window.addEventListener('DOMContentLoaded', runBootSequence);
+
+        // Random Cyber Quotes
+        const quotes = [
+            "\"Architect of Digital Madness\"",
+            "\"In the void, code is the only truth\"",
+            "\"System breach in progress...\"",
+            "\"Embrace the digital darkness\"",
+            "\"Lost in the crimson matrix\""
+        ];
+        document.getElementById("cyber-quote").textContent = quotes[Math.floor(Math.random() * quotes.length)];
+
+        // Visitor Counter (Increments locally per session/visit)
+        let visits = localStorage.getItem('tr_visits') || 1420;
+        if (!sessionStorage.getItem('visited')) {
+            visits++;
+            localStorage.setItem('tr_visits', visits);
+            sessionStorage.setItem('visited', 'true');
+        }
+        document.getElementById("visit-count").textContent = visits;
+
         function toggleMusic() {
             var music = document.getElementById("bg-music");
             var icon = document.getElementById("play-icon");
@@ -146,16 +197,16 @@
             }, { duration: 250, fill: "forwards" });
         });
 
-        const textToType = "ARCHITECT OF DIGITAL MADNESS";
+        const textToType = "TR SD SYSTEMS";
         let typeIndex = 0;
         function typeWriter() {
             if (typeIndex < textToType.length) {
                 document.getElementById("typed-text").innerHTML += textToType.charAt(typeIndex);
                 typeIndex++;
-                setTimeout(typeWriter, 80);
+                setTimeout(typeWriter, 100);
             }
         }
-        window.onload = typeWriter;
+        setTimeout(typeWriter, 2000); // Start after boot screen
 
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
