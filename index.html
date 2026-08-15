@@ -9,6 +9,13 @@
 </head>
 <body>
 
+    <!-- Custom Cyber Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Matrix Red Code Rain Canvas -->
+    <canvas id="matrix-canvas"></canvas>
+
     <!-- Background Video -->
     <video autoplay muted loop id="bg-video">
         <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
@@ -24,7 +31,6 @@
 
     <!-- Header Wrapper -->
     <div class="top-header-wrapper">
-        <!-- Top Left Status Box -->
         <div class="hud-box top-left-box">
             <div class="box-header">
                 <span class="dot red"></span>
@@ -35,7 +41,6 @@
             </div>
         </div>
 
-        <!-- Top Right Music Controller HUD -->
         <div class="hud-box top-right-music">
             <button id="music-btn" onclick="toggleMusic()">
                 <i class="fa-solid fa-play" id="play-icon"></i>
@@ -54,21 +59,19 @@
             <h1 class="main-title">TR SD</h1>
             <span class="wing right-wing">🪽</span>
         </div>
-        <p class="subtitle">ARCHITECT OF DIGITAL MADNESS</p>
+        <!-- Typing Effect Target -->
+        <p class="subtitle"><span id="typed-text"></span><span class="cursor-blink">|</span></p>
         <p class="tagline">Liberate . Digital . Dark</p>
     </div>
 
     <!-- Bottom Dashboard -->
     <div class="bottom-dashboard">
-        <!-- Bottom Left Widgets: Clock & Status -->
         <div class="bottom-left-widgets">
-            <!-- Live Clock -->
             <div class="hud-box clock-box">
                 <div id="clock-time">00:00:00</div>
                 <div id="clock-date">SAT 15 AUG 2026</div>
             </div>
 
-            <!-- User Profile Card -->
             <div class="hud-box profile-card">
                 <img src="https://i.pinimg.com/736x/87/42/1d/87421d033db7faec0f32cfcd0ff64e32.jpg" alt="Red Spider Avatar" class="mini-avatar">
                 <div class="profile-details">
@@ -78,7 +81,6 @@
             </div>
         </div>
 
-        <!-- Bottom Center Links HUD -->
         <div class="bottom-center-links">
             <div class="links-hud">
                 <a href="https://open.spotify.com/user/31stripkxmrpjbh3ucbml4ylcpna" target="_blank"><i class="fa-brands fa-spotify"></i> SPOTIFY</a>
@@ -90,7 +92,6 @@
             <p class="footer-note">✝ Darkness awaits you ✝</p>
         </div>
 
-        <!-- Bottom Right Heart BPM Widget -->
         <div class="hud-box bottom-right-bpm">
             <div class="bpm-header">
                 <span>HEART</span>
@@ -104,8 +105,9 @@
         </div>
     </div>
 
-    <!-- JavaScript logic -->
+    <!-- Scripts -->
     <script>
+        // Audio Toggle
         function toggleMusic() {
             var music = document.getElementById("bg-music");
             var icon = document.getElementById("play-icon");
@@ -122,6 +124,7 @@
             }
         }
 
+        // Clock
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
@@ -131,6 +134,64 @@
         }
         setInterval(updateClock, 1000);
         updateClock();
+
+        // 1. Custom Cyber Cursor Script
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 250, fill: "forwards" });
+        });
+
+        // 2. Terminal Typing Effect
+        const textToType = "ARCHITECT OF DIGITAL MADNESS";
+        let typeIndex = 0;
+        function typeWriter() {
+            if (typeIndex < textToType.length) {
+                document.getElementById("typed-text").innerHTML += textToType.charAt(typeIndex);
+                typeIndex++;
+                setTimeout(typeWriter, 80);
+            }
+        }
+        window.onload = typeWriter;
+
+        // 3. Red Matrix Rain Effect
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン0123456789ABCDEF';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const rainDrops = Array.from({ length: columns }).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#ff003c';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < rainDrops.length; i++) {
+                const text = katakana.charAt(Math.floor(Math.random() * katakana.length));
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 33);
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
     </script>
 </body>
 </html>
