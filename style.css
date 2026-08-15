@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: #030303;
+    background-color: #000;
     color: #ff003c;
     font-family: 'Courier New', Courier, monospace;
     min-height: 100vh;
@@ -70,24 +70,15 @@ body {
     top: 0; left: 0;
     width: 100%; height: 100%;
     z-index: -1;
-    opacity: 0.55;
+    opacity: 0.35;
     pointer-events: none;
-}
-
-/* Background Video */
-#bg-video {
-    position: fixed; right: 0; bottom: 0;
-    min-width: 100%; min-height: 100%;
-    z-index: -3;
-    object-fit: cover;
-    filter: brightness(0.15) contrast(1.4) hue-rotate(-20deg);
 }
 
 /* Overlay Line Effect */
 .overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(rgba(18, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.9) 50%), 
-                linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 0, 0, 0.05), rgba(150, 0, 0, 0.03));
+    background: linear-gradient(rgba(18, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.7) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 0, 0, 0.04), rgba(150, 0, 0, 0.02));
     z-index: -2;
     background-size: 100% 3px, 6px 100%;
     pointer-events: none;
@@ -168,6 +159,34 @@ body {
     100% { height: 100%; opacity: 1; box-shadow: 0 0 8px #ff003c; }
 }
 
+/* Live Ticker Styles */
+.ticker-wrapper {
+    width: 100%;
+    background: rgba(10, 2, 3, 0.9);
+    border-top: 1px solid rgba(255, 0, 60, 0.3);
+    border-bottom: 1px solid rgba(255, 0, 60, 0.3);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 5px 0;
+    margin: 5px 0;
+    z-index: 2;
+    position: relative;
+}
+
+.ticker-text {
+    display: inline-block;
+    padding-left: 100%;
+    animation: ticker 22s linear infinite;
+    font-size: 0.65rem;
+    color: #ff003c;
+    letter-spacing: 2px;
+}
+
+@keyframes ticker {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-100%, 0, 0); }
+}
+
 /* Hero Center Box */
 .hero-container {
     text-align: center;
@@ -190,6 +209,53 @@ body {
     color: #fff;
     text-shadow: 0 0 15px rgba(255, 0, 60, 0.8), 2px 2px 0px #ff003c;
     display: inline-block;
+}
+
+/* Glitch Effect for Main Title */
+.glitch {
+    position: relative;
+    color: #fff;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip: rect(0, 0, 0, 0);
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff003c;
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 #00ffff, 0 2px #ff003c;
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+    0% { clip: rect(20px, 9999px, 40px, 0); }
+    20% { clip: rect(60px, 9999px, 15px, 0); }
+    40% { clip: rect(10px, 9999px, 50px, 0); }
+    60% { clip: rect(80px, 9999px, 30px, 0); }
+    80% { clip: rect(30px, 9999px, 70px, 0); }
+    100% { clip: rect(50px, 9999px, 20px, 0); }
+}
+
+@keyframes glitch-anim-2 {
+    0% { clip: rect(10px, 9999px, 60px, 0); }
+    20% { clip: rect(50px, 9999px, 20px, 0); }
+    40% { clip: rect(30px, 9999px, 80px, 0); }
+    60% { clip: rect(70px, 9999px, 10px, 0); }
+    80% { clip: rect(20px, 9999px, 40px, 0); }
+    100% { clip: rect(60px, 9999px, 90px, 0); }
 }
 
 .wing-svg {
@@ -230,7 +296,7 @@ body {
 .terminal-box {
     width: 100%;
     max-width: 500px;
-    background: rgba(5, 1, 2, 0.9);
+    background: rgba(5, 1, 2, 0.85);
     border: 1px solid rgba(255, 0, 60, 0.4);
     border-radius: 4px;
     padding: 8px 12px;
@@ -246,9 +312,7 @@ body {
     margin-bottom: 6px;
 }
 
-.term-hint {
-    color: #555;
-}
+.term-hint { color: #555; }
 
 #terminal-output {
     font-size: 0.65rem;
