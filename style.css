@@ -44,12 +44,13 @@ body {
     box-shadow: 0 0 12px rgba(255, 0, 60, 0.3);
 }
 
-/* Red Matrix Canvas */
+/* Red Matrix Canvas - Visible Version */
 #matrix-canvas {
-    position: fixed; top: 0; left: 0;
+    position: fixed;
+    top: 0; left: 0;
     width: 100%; height: 100%;
-    z-index: -2;
-    opacity: 0.25;
+    z-index: -1;
+    opacity: 0.55; /* زيادة الظهور لترجع الحروف واضحة */
     pointer-events: none;
 }
 
@@ -59,15 +60,15 @@ body {
     min-width: 100%; min-height: 100%;
     z-index: -3;
     object-fit: cover;
-    filter: brightness(0.2) contrast(1.4) hue-rotate(-20deg);
+    filter: brightness(0.15) contrast(1.4) hue-rotate(-20deg);
 }
 
 /* Overlay Line Effect */
 .overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(rgba(18, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.95) 50%), 
+    background: linear-gradient(rgba(18, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.9) 50%), 
                 linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 0, 0, 0.05), rgba(150, 0, 0, 0.03));
-    z-index: -1;
+    z-index: -2;
     background-size: 100% 3px, 6px 100%;
     pointer-events: none;
 }
@@ -150,7 +151,7 @@ body {
 /* Hero Center Box */
 .hero-container {
     text-align: center;
-    margin: 20px 0;
+    margin: 15px 0;
     width: 100%;
 }
 
@@ -306,11 +307,11 @@ body {
 .bpm-val { color: #fff; font-weight: bold; }
 .ecg-graph svg { width: 100%; height: 20px; filter: drop-shadow(0 0 4px #ff003c); }
 
-/* Custom Mobile Responsive Rule */
+/* Phone Responsiveness Setup */
 @media (max-width: 768px) {
     body {
         justify-content: flex-start;
-        gap: 20px;
+        gap: 25px;
         padding: 12px;
         overflow-y: auto;
     }
@@ -321,13 +322,13 @@ body {
     }
 
     .hero-container {
-        margin: 10px 0;
+        margin: 20px 0;
     }
 
     .bottom-dashboard {
         flex-direction: column;
         align-items: stretch;
-        gap: 12px;
+        gap: 15px;
     }
 
     .bottom-left-widgets {
