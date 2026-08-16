@@ -1,4 +1,6 @@
-/* Base Reset */
+/* ==========================================
+   1. BASE RESET & BODY STYLING
+   ========================================== */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -19,52 +21,62 @@ body {
     flex-direction: column;
     justify-content: space-between;
     padding: 15px;
+    transition: color 0.3s ease;
 }
 
-/* Boot Screen Styles */
-#boot-screen {
+/* ==========================================
+   2. CORNER SPIDERS STYLING
+   ========================================== */
+.spider {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: #000;
-    z-index: 99999;
-    display: flex;
-    align-items: flex-start;
-    padding: 40px;
-    transition: opacity 0.5s ease;
+    width: 45px;
+    height: 45px;
+    z-index: 100;
+    pointer-events: none;
+    fill: currentColor;
+    filter: drop-shadow(0 0 8px currentColor);
+    animation: spiderPulse 2s infinite ease-in-out;
 }
 
-#boot-text {
-    color: #ff003c;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    text-shadow: 0 0 8px #ff003c;
+@keyframes spiderPulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 12px currentColor); }
 }
 
-/* Custom Cyber Cursor */
+.spider-tl { top: 8px; left: 8px; transform: rotate(180deg); }
+.spider-tr { top: 8px; right: 8px; transform: rotate(270deg); }
+.spider-bl { bottom: 8px; left: 8px; transform: rotate(90deg); }
+.spider-br { bottom: 8px; right: 8px; }
+
+/* ==========================================
+   3. CUSTOM CYBER CURSOR
+   ========================================== */
 .cursor-dot {
     width: 6px; height: 6px;
-    background-color: #ff003c;
+    background-color: currentColor;
     position: fixed; top: 0; left: 0;
     transform: translate(-50%, -50%);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
-    box-shadow: 0 0 10px #ff003c;
+    box-shadow: 0 0 10px currentColor;
 }
 
 .cursor-outline {
     width: 30px; height: 30px;
-    border: 1px solid rgba(255, 0, 60, 0.6);
+    border: 1px solid currentColor;
     position: fixed; top: 0; left: 0;
     transform: translate(-50%, -50%);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9998;
-    box-shadow: 0 0 12px rgba(255, 0, 60, 0.3);
+    opacity: 0.6;
+    box-shadow: 0 0 12px currentColor;
 }
 
-/* Red Matrix Canvas */
+/* ==========================================
+   4. BACKGROUND EFFECTS (Matrix & Overlay)
+   ========================================== */
 #matrix-canvas {
     position: fixed;
     top: 0; left: 0;
@@ -74,7 +86,6 @@ body {
     pointer-events: none;
 }
 
-/* Overlay Line Effect */
 .overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: linear-gradient(rgba(18, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.7) 50%), 
@@ -84,18 +95,24 @@ body {
     pointer-events: none;
 }
 
-/* HUD Box Universal Styling */
+/* ==========================================
+   5. HUD BOX UNIVERSAL STYLING
+   ========================================== */
 .hud-box {
     background: rgba(10, 2, 3, 0.85);
     border: 1px solid rgba(255, 0, 60, 0.4);
+    border-color: inherit;
     backdrop-filter: blur(8px);
     box-shadow: 0 0 15px rgba(255, 0, 60, 0.15);
     padding: 10px 14px;
     border-radius: 4px;
     z-index: 10;
+    transition: border-color 0.3s ease;
 }
 
-/* Header Grid Layout */
+/* ==========================================
+   6. HEADER GRID LAYOUT
+   ========================================== */
 .top-header-wrapper {
     display: flex;
     justify-content: space-between;
@@ -114,9 +131,9 @@ body {
 
 .dot.red {
     width: 6px; height: 6px;
-    background: #ff003c;
+    background: currentColor;
     border-radius: 50%;
-    box-shadow: 0 0 8px #ff003c;
+    box-shadow: 0 0 8px currentColor;
 }
 
 .box-content p {
@@ -124,168 +141,9 @@ body {
     color: #888;
 }
 
-/* Music Control */
-#music-btn {
-    background: transparent;
-    border: none;
-    color: #ff003c;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: inherit;
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-}
-
-.audio-wave {
-    display: flex;
-    align-items: flex-end;
-    gap: 3px;
-    height: 12px;
-}
-
-.audio-wave span {
-    width: 2px; height: 100%;
-    background: #ff003c;
-    opacity: 0.3;
-}
-
-.audio-wave.playing span {
-    animation: wave 1s infinite ease-in-out alternate;
-}
-
-@keyframes wave {
-    0% { height: 20%; opacity: 0.4; }
-    100% { height: 100%; opacity: 1; box-shadow: 0 0 8px #ff003c; }
-}
-
-/* Live Ticker Styles */
-.ticker-wrapper {
-    width: 100%;
-    background: rgba(10, 2, 3, 0.9);
-    border-top: 1px solid rgba(255, 0, 60, 0.3);
-    border-bottom: 1px solid rgba(255, 0, 60, 0.3);
-    overflow: hidden;
-    white-space: nowrap;
-    padding: 5px 0;
-    margin: 5px 0;
-    z-index: 2;
-    position: relative;
-}
-
-.ticker-text {
-    display: inline-block;
-    padding-left: 100%;
-    animation: ticker 22s linear infinite;
-    font-size: 0.65rem;
-    color: #ff003c;
-    letter-spacing: 2px;
-}
-
-@keyframes ticker {
-    0% { transform: translate3d(0, 0, 0); }
-    100% { transform: translate3d(-100%, 0, 0); }
-}
-
-/* Hero Center Box */
-.hero-container {
-    text-align: center;
-    margin: 10px 0;
-    width: 100%;
-}
-
-.wings-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    white-space: nowrap;
-}
-
-.main-title {
-    font-size: clamp(2.2rem, 7vw, 4.2rem);
-    font-weight: 900;
-    letter-spacing: 4px;
-    color: #fff;
-    text-shadow: 0 0 15px rgba(255, 0, 60, 0.8), 2px 2px 0px #ff003c;
-    display: inline-block;
-}
-
-/* Glitch Effect for Main Title */
-.glitch {
-    position: relative;
-    color: #fff;
-}
-
-.glitch::before,
-.glitch::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    clip: rect(0, 0, 0, 0);
-}
-
-.glitch::before {
-    left: 2px;
-    text-shadow: -2px 0 #ff003c;
-    animation: glitch-anim-1 2s infinite linear alternate-reverse;
-}
-
-.glitch::after {
-    left: -2px;
-    text-shadow: -2px 0 #00ffff, 0 2px #ff003c;
-    animation: glitch-anim-2 3s infinite linear alternate-reverse;
-}
-
-@keyframes glitch-anim-1 {
-    0% { clip: rect(20px, 9999px, 40px, 0); }
-    20% { clip: rect(60px, 9999px, 15px, 0); }
-    40% { clip: rect(10px, 9999px, 50px, 0); }
-    60% { clip: rect(80px, 9999px, 30px, 0); }
-    80% { clip: rect(30px, 9999px, 70px, 0); }
-    100% { clip: rect(50px, 9999px, 20px, 0); }
-}
-
-@keyframes glitch-anim-2 {
-    0% { clip: rect(10px, 9999px, 60px, 0); }
-    20% { clip: rect(50px, 9999px, 20px, 0); }
-    40% { clip: rect(30px, 9999px, 80px, 0); }
-    60% { clip: rect(70px, 9999px, 10px, 0); }
-    80% { clip: rect(20px, 9999px, 40px, 0); }
-    100% { clip: rect(60px, 9999px, 90px, 0); }
-}
-
-.wing-svg {
-    width: clamp(25px, 5vw, 40px);
-    height: clamp(25px, 5vw, 40px);
-    filter: drop-shadow(0 0 8px #ff003c);
-    flex-shrink: 0;
-}
-
-.left-wing { transform: scaleX(-1); }
-
-.subtitle {
-    font-size: clamp(0.7rem, 2vw, 1rem);
-    letter-spacing: 2px;
-    color: #ff003c;
-    margin-top: 6px;
-    text-shadow: 0 0 8px rgba(255, 0, 60, 0.5);
-}
-
-.cursor-blink { animation: blink 0.7s infinite; }
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-.tagline {
-    font-size: 0.65rem;
-    letter-spacing: 2px;
-    color: #888;
-    margin-top: 4px;
-}
-
-/* Terminal Section Styles */
+/* ==========================================
+   7. TERMINAL SECTION STYLES
+   ========================================== */
 .terminal-section {
     display: flex;
     justify-content: center;
@@ -297,7 +155,8 @@ body {
     width: 100%;
     max-width: 500px;
     background: rgba(5, 1, 2, 0.85);
-    border: 1px solid rgba(255, 0, 60, 0.4);
+    border: 1px solid;
+    border-color: inherit;
     border-radius: 4px;
     padding: 8px 12px;
 }
@@ -312,11 +171,9 @@ body {
     margin-bottom: 6px;
 }
 
-.term-hint { color: #555; }
-
 #terminal-output {
     font-size: 0.65rem;
-    max-height: 60px;
+    max-height: 80px;
     overflow-y: auto;
     color: #ccc;
     margin-bottom: 6px;
@@ -330,7 +187,7 @@ body {
     align-items: center;
     gap: 6px;
     font-size: 0.7rem;
-    color: #ff003c;
+    color: inherit;
 }
 
 .terminal-input-line input {
@@ -344,83 +201,15 @@ body {
     cursor: text !important;
 }
 
-/* Bottom Dashboard */
+/* ==========================================
+   8. LINKS & DASHBOARD
+   ========================================== */
 .bottom-dashboard {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     width: 100%;
     gap: 15px;
-}
-
-.bottom-left-widgets {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    min-width: 160px;
-}
-
-#clock-time {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #fff;
-    letter-spacing: 1px;
-    text-shadow: 0 0 8px #ff003c;
-}
-
-#clock-date {
-    font-size: 0.55rem;
-    color: #888;
-    letter-spacing: 1px;
-    margin-bottom: 4px;
-}
-
-#visitor-counter {
-    font-size: 0.6rem;
-    color: #ff003c;
-    border-top: 1px dashed rgba(255, 0, 60, 0.3);
-    padding-top: 4px;
-    letter-spacing: 1px;
-}
-
-.profile-card {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.mini-avatar {
-    width: 30px; height: 30px;
-    border-radius: 4px;
-    border: 1px solid #ff003c;
-    object-fit: cover;
-}
-
-.status-indicator {
-    font-size: 0.6rem;
-    color: #ff003c;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.status-dot {
-    width: 5px; height: 5px;
-    background: #ff003c;
-    border-radius: 50%;
-    box-shadow: 0 0 6px #ff003c;
-}
-
-.username {
-    font-size: 0.75rem;
-    color: #fff;
-    font-weight: bold;
-}
-
-/* Links Section */
-.bottom-center-links {
-    text-align: center;
-    flex: 1;
 }
 
 .links-hud {
@@ -436,32 +225,22 @@ body {
     font-size: 0.65rem;
     padding: 6px 10px;
     background: rgba(5, 1, 2, 0.85);
-    border: 1px solid rgba(255, 0, 60, 0.4);
+    border: 1px solid;
+    border-color: inherit;
     border-radius: 3px;
     letter-spacing: 1px;
     transition: all 0.3s ease;
 }
 
 .links-hud a:hover {
-    background: #ff003c;
+    background: currentColor;
     color: #000;
-    box-shadow: 0 0 12px #ff003c;
+    box-shadow: 0 0 12px currentColor;
 }
 
-.footer-note {
-    font-size: 0.6rem;
-    color: #555;
-    margin-top: 6px;
-    letter-spacing: 1.5px;
-}
-
-/* BPM Section */
-.bottom-right-bpm { min-width: 140px; }
-.bpm-header { display: flex; justify-content: space-between; font-size: 0.65rem; margin-bottom: 4px; }
-.bpm-val { color: #fff; font-weight: bold; }
-.ecg-graph svg { width: 100%; height: 20px; filter: drop-shadow(0 0 4px #ff003c); }
-
-/* Phone Responsiveness Setup */
+/* ==========================================
+   9. RESPONSIVE DESIGN
+   ========================================== */
 @media (max-width: 768px) {
     body {
         justify-content: flex-start;
@@ -469,36 +248,13 @@ body {
         padding: 12px;
         overflow-y: auto;
     }
-
     .top-header-wrapper {
         flex-direction: column;
         align-items: stretch;
     }
-
-    .hero-container {
-        margin: 10px 0;
-    }
-
-    .terminal-section {
-        width: 100%;
-    }
-
     .bottom-dashboard {
         flex-direction: column;
         align-items: stretch;
         gap: 12px;
-    }
-
-    .bottom-left-widgets {
-        flex-direction: row;
-        width: 100%;
-    }
-
-    .bottom-left-widgets .hud-box {
-        flex: 1;
-    }
-
-    .bottom-center-links, .bottom-right-bpm {
-        width: 100%;
     }
 }
