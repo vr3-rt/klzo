@@ -1,260 +1,59 @@
-/* ==========================================
-   1. BASE RESET & BODY STYLING
-   ========================================== */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    cursor: none;
-}
-
 body {
     background-color: #000;
     color: #ff003c;
-    font-family: 'Courier New', Courier, monospace;
-    min-height: 100vh;
-    width: 100%;
-    overflow-x: hidden;
-    user-select: none;
-    position: relative;
+    font-family: 'Courier New', monospace;
+    margin: 0;
+    height: 100vh;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 15px;
-    transition: color 0.3s ease;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
-/* ==========================================
-   2. CORNER SPIDERS STYLING
-   ========================================== */
+/* Spider Styling */
 .spider {
     position: fixed;
     width: 45px;
     height: 45px;
     z-index: 100;
     pointer-events: none;
-    fill: currentColor;
-    filter: drop-shadow(0 0 8px currentColor);
+    fill: #ff003c;
+    filter: drop-shadow(0 0 8px #ff003c);
     animation: spiderPulse 2s infinite ease-in-out;
 }
 
 @keyframes spiderPulse {
     0%, 100% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 12px currentColor); }
+    50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 12px #ff003c); }
 }
 
-.spider-tl { top: 8px; left: 8px; transform: rotate(180deg); }
-.spider-tr { top: 8px; right: 8px; transform: rotate(270deg); }
-.spider-bl { bottom: 8px; left: 8px; transform: rotate(90deg); }
-.spider-br { bottom: 8px; right: 8px; }
+.spider-tl { top: 20px; left: 20px; transform: rotate(180deg); }
+.spider-tr { top: 20px; right: 20px; transform: rotate(270deg); }
+.spider-bl { bottom: 20px; left: 20px; transform: rotate(90deg); }
+.spider-br { bottom: 20px; right: 20px; }
 
-/* ==========================================
-   3. CUSTOM CYBER CURSOR
-   ========================================== */
-.cursor-dot {
-    width: 6px; height: 6px;
-    background-color: currentColor;
-    position: fixed; top: 0; left: 0;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    box-shadow: 0 0 10px currentColor;
-}
-
-.cursor-outline {
-    width: 30px; height: 30px;
-    border: 1px solid currentColor;
-    position: fixed; top: 0; left: 0;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    opacity: 0.6;
-    box-shadow: 0 0 12px currentColor;
-}
-
-/* ==========================================
-   4. BACKGROUND EFFECTS (Matrix & Overlay)
-   ========================================== */
-#matrix-canvas {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -1;
-    opacity: 0.35;
-    pointer-events: none;
-}
-
-.overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(rgba(18, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.7) 50%), 
-                linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 0, 0, 0.04), rgba(150, 0, 0, 0.02));
-    z-index: -2;
-    background-size: 100% 3px, 6px 100%;
-    pointer-events: none;
-}
-
-/* ==========================================
-   5. HUD BOX UNIVERSAL STYLING
-   ========================================== */
-.hud-box {
-    background: rgba(10, 2, 3, 0.85);
-    border: 1px solid rgba(255, 0, 60, 0.4);
-    border-color: inherit;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 0 15px rgba(255, 0, 60, 0.15);
-    padding: 10px 14px;
-    border-radius: 4px;
-    z-index: 10;
-    transition: border-color 0.3s ease;
-}
-
-/* ==========================================
-   6. HEADER GRID LAYOUT
-   ========================================== */
-.top-header-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    gap: 10px;
-}
-
-.box-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-}
-
-.dot.red {
-    width: 6px; height: 6px;
-    background: currentColor;
-    border-radius: 50%;
-    box-shadow: 0 0 8px currentColor;
-}
-
-.box-content p {
-    font-size: 0.7rem;
-    color: #888;
-}
-
-/* ==========================================
-   7. TERMINAL SECTION STYLES
-   ========================================== */
-.terminal-section {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin: 5px 0;
-}
-
+/* Terminal Styling */
 .terminal-box {
-    width: 100%;
-    max-width: 500px;
-    background: rgba(5, 1, 2, 0.85);
-    border: 1px solid;
-    border-color: inherit;
-    border-radius: 4px;
-    padding: 8px 12px;
-}
-
-.terminal-header {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.65rem;
-    color: #aaa;
-    border-bottom: 1px solid rgba(255, 0, 60, 0.2);
-    padding-bottom: 4px;
-    margin-bottom: 6px;
+    width: 500px;
+    padding: 20px;
+    border: 2px solid #ff003c;
+    background: rgba(10, 0, 0, 0.9);
+    box-shadow: 0 0 20px rgba(255, 0, 60, 0.3);
 }
 
 #terminal-output {
-    font-size: 0.65rem;
-    max-height: 80px;
+    height: 100px;
     overflow-y: auto;
-    color: #ccc;
-    margin-bottom: 6px;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
 }
 
-.terminal-input-line {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.7rem;
-    color: inherit;
-}
-
-.terminal-input-line input {
+.input-area { display: flex; gap: 10px; }
+#terminal-input {
     background: transparent;
     border: none;
     color: #fff;
     font-family: inherit;
-    font-size: 0.7rem;
     outline: none;
     flex: 1;
-    cursor: text !important;
-}
-
-/* ==========================================
-   8. LINKS & DASHBOARD
-   ========================================== */
-.bottom-dashboard {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    width: 100%;
-    gap: 15px;
-}
-
-.links-hud {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.links-hud a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 0.65rem;
-    padding: 6px 10px;
-    background: rgba(5, 1, 2, 0.85);
-    border: 1px solid;
-    border-color: inherit;
-    border-radius: 3px;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-}
-
-.links-hud a:hover {
-    background: currentColor;
-    color: #000;
-    box-shadow: 0 0 12px currentColor;
-}
-
-/* ==========================================
-   9. RESPONSIVE DESIGN
-   ========================================== */
-@media (max-width: 768px) {
-    body {
-        justify-content: flex-start;
-        gap: 15px;
-        padding: 12px;
-        overflow-y: auto;
-    }
-    .top-header-wrapper {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    .bottom-dashboard {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-    }
 }
