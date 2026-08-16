@@ -2,83 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SYSTEM.VOID // TR SD</title>
-    <style>
-        /* CSS المتكامل */
-        body {
-            background-color: #000;
-            color: #ff003c;
-            font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        /* تنسيق العناكب */
-        .spider {
-            position: fixed;
-            width: 45px;
-            height: 45px;
-            z-index: 100;
-            pointer-events: none;
-            fill: #ff003c;
-            filter: drop-shadow(0 0 8px #ff003c);
-            animation: spiderPulse 2s infinite ease-in-out;
-        }
-
-        @keyframes spiderPulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 12px #ff003c); }
-        }
-
-        .spider-tl { top: 20px; left: 20px; transform: rotate(180deg); }
-        .spider-tr { top: 20px; right: 20px; transform: rotate(270deg); }
-        .spider-bl { bottom: 20px; left: 20px; transform: rotate(90deg); }
-        .spider-br { bottom: 20px; right: 20px; }
-
-        /* تنسيق الترمينال */
-        .terminal-box {
-            width: 500px;
-            padding: 20px;
-            border: 2px solid #ff003c;
-            background: rgba(10, 0, 0, 0.9);
-            box-shadow: 0 0 20px rgba(255, 0, 60, 0.2);
-        }
-
-        #terminal-output {
-            height: 100px;
-            overflow-y: auto;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-        }
-
-        #terminal-input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            color: #fff;
-            font-family: inherit;
-            outline: none;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- العناكب (يجب أن تكون في الـ HTML كما هي هنا) -->
+    <!-- Spider Elements -->
     <svg class="spider spider-tl" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z"/></svg>
     <svg class="spider spider-tr" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z"/></svg>
     <svg class="spider spider-bl" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z"/></svg>
     <svg class="spider spider-br" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z"/></svg>
 
-    <!-- الترمينال -->
+    <!-- Terminal -->
     <div class="terminal-box">
         <div id="terminal-output">System Online... Type 'help' to start.</div>
-        <div>tr@sd:~$ <input type="text" id="terminal-input" autofocus></div>
+        <div class="input-area">
+            <span>tr@sd:~$</span>
+            <input type="text" id="terminal-input" autofocus>
+        </div>
     </div>
 
     <script>
@@ -89,17 +30,10 @@
             if (e.key === 'Enter') {
                 const cmd = input.value.trim().toLowerCase();
                 output.innerHTML += `<div>tr@sd:~$ ${cmd}</div>`;
-                
-                if (cmd === 'help') {
-                    output.innerHTML += `<div style="color:#ff003c">Commands: help, whoami, status, clear</div>`;
-                } else if (cmd === 'whoami') {
-                    output.innerHTML += `<div style="color:#ff003c">TR SD // Digital Architect</div>`;
-                } else if (cmd === 'clear') {
-                    output.innerHTML = "";
-                } else {
-                    output.innerHTML += `<div>Command not found.</div>`;
-                }
-                
+                if (cmd === 'help') output.innerHTML += `<div style="color:#ff003c">Commands: help, whoami, clear</div>`;
+                else if (cmd === 'whoami') output.innerHTML += `<div style="color:#ff003c">TR SD // Digital Architect</div>`;
+                else if (cmd === 'clear') output.innerHTML = "";
+                else output.innerHTML += `<div>Command not found.</div>`;
                 input.value = "";
                 output.scrollTop = output.scrollHeight;
             }
