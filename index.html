@@ -4,291 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SYSTEM.VOID // TR SD</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* إضافة ستايل العناكب المتحركة */
+        .spider {
+            position: fixed; width: 40px; height: 40px; z-index: 100;
+            pointer-events: none; fill: #ff003c;
+            animation: pulse 2s infinite ease-in-out;
+        }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .spider-tl { top: 10px; left: 10px; transform: rotate(180deg); }
+        .spider-tr { top: 10px; right: 10px; transform: rotate(270deg); }
+        .spider-bl { bottom: 10px; left: 10px; transform: rotate(90deg); }
+        .spider-br { bottom: 10px; right: 10px; }
+
+        /* ستايل الترمينال المحدث */
+        .terminal-box { border: 2px solid #ff003c; transition: border-color 0.3s; }
+        .terminal-output { height: 100px; overflow-y: auto; color: #fff; font-family: monospace; }
+        
+        /* بقية الستايلات السابقة (يفضل وضعها في style.css) */
+        body { background: #000; color: #ff003c; font-family: 'Courier New', monospace; }
+    </style>
 </head>
 <body>
 
-    <!-- Terminal Boot Screen -->
-    <div id="boot-screen">
-        <div id="boot-text"></div>
-    </div>
+    <!-- العناكب في الزوايا -->
+    <svg class="spider spider-tl" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z" fill="#ff003c"/></svg>
+    <svg class="spider spider-tr" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z" fill="#ff003c"/></svg>
+    <svg class="spider spider-bl" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z" fill="#ff003c"/></svg>
+    <svg class="spider spider-br" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z" fill="#ff003c"/></svg>
 
-    <!-- Custom Cyber Cursor -->
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
-
-    <!-- Matrix Red Code Rain Canvas -->
-    <canvas id="matrix-canvas"></canvas>
-
-    <!-- Dark Overlay & CRT Lines -->
-    <div class="overlay"></div>
-
-    <!-- Audio Player -->
-    <audio id="bg-music" loop preload="auto">
-        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a221b2.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- Header Wrapper -->
-    <div class="top-header-wrapper">
-        <div class="hud-box top-left-box">
-            <div class="box-header">
-                <span class="dot red"></span>
-                <span class="title">SOUL.INTEGRITY</span>
-            </div>
-            <div class="box-content">
-                <p>> ALL_IS_DARK // 0x3070</p>
-            </div>
-        </div>
-
-        <div class="hud-box top-right-music">
-            <button id="music-btn" onclick="toggleMusic()">
-                <i class="fa-solid fa-play" id="play-icon"></i>
-                <span id="song-title">419 & HEARTBREAK</span>
-            </button>
-            <div class="audio-wave">
-                <span></span><span></span><span></span><span></span><span></span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Live Ticker Bar -->
-    <div class="ticker-wrapper">
-        <div class="ticker-text">
-            <span>[SYS_ALERT: SECURE_CHANNEL_ACTIVE]</span> &bull; 
-            <span>NODE LOCATION: DZ_ALGERIA</span> &bull; 
-            <span>STATUS: ENCRYPTED // TR_SD v1.0</span> &bull; 
-            <span>WARNING: UNAUTHORIZED ACCESS WILL BE LOGGED</span>
-        </div>
-    </div>
-
-    <!-- Main Center Hero Section -->
-    <div class="hero-container">
-        <div class="wings-wrapper">
-            <svg class="wing-svg left-wing" viewBox="0 0 24 24" fill="#ff003c"><path d="M11.5 3C7 3 2 6.5 2 12c0 4 3 7 7 7 2.5 0 4.5-1 5.5-2.5C13 18 10 18 8 16c-2-2-1.5-5 1-7 2-1.5 4.5-2 7.5-1.5C15 5 13.5 3 11.5 3z"/></svg>
-            <h1 class="main-title glitch" data-text="TR SD">TR SD</h1>
-            <svg class="wing-svg right-wing" viewBox="0 0 24 24" fill="#ff003c"><path d="M12.5 3C17 3 22 6.5 22 12c0 4-3 7-7 7-2.5 0-4.5-1-5.5-2.5C11 18 14 18 16 16c2-2 1.5-5-1-7-2-1.5-4.5-2-7.5-1.5C9 5 10.5 3 12.5 3z"/></svg>
-        </div>
-        <p class="subtitle"><span id="typed-text"></span><span class="cursor-blink">|</span></p>
-        <p class="tagline" id="cyber-quote">"Liberate . Digital . Dark"</p>
-    </div>
-
-    <!-- Interactive Terminal Box Section -->
-    <div class="terminal-section">
-        <div class="hud-box terminal-box">
-            <div class="terminal-header">
-                <span><i class="fa-solid fa-terminal"></i> TR_CLI v1.0.4</span>
-                <span class="term-hint">Type 'help'</span>
-            </div>
-            <div id="terminal-output">
-                <p>System online. Type commands below (e.g., 'help', 'socials', 'status').</p>
-            </div>
+    <!-- واجهة الترمينال -->
+    <div class="terminal-section" style="padding-top: 200px; display: flex; justify-content: center;">
+        <div class="hud-box terminal-box" style="width: 500px;">
+            <div id="terminal-output" class="terminal-output"></div>
             <div class="terminal-input-line">
                 <span>tr@sd:~$</span>
-                <input type="text" id="terminal-input" autocomplete="off" spellcheck="false">
+                <input type="text" id="terminal-input" style="background:transparent; border:none; color:#fff; width: 80%; outline:none;">
             </div>
         </div>
     </div>
 
-    <!-- Bottom Dashboard -->
-    <div class="bottom-dashboard">
-        <div class="bottom-left-widgets">
-            <div class="hud-box clock-box">
-                <div id="clock-time">00:00:00</div>
-                <div id="clock-date">SAT 15 AUG 2026</div>
-                <div id="visitor-counter"><i class="fa-solid fa-eye"></i> NODES: <span id="visit-count">1337</span></div>
-            </div>
-
-            <div class="hud-box profile-card">
-                <img src="https://i.pinimg.com/736x/f8/a0/02/f8a002bcbc6f3d994e7fa07bb88bb258.jpg" alt="Pyramid Head Avatar" class="mini-avatar">
-                <div class="profile-details">
-                    <div class="status-indicator"><span class="status-dot"></span> online</div>
-                    <div class="username">tr._.sd</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="bottom-center-links">
-            <div class="links-hud">
-                <a href="https://open.spotify.com/user/31stripkxmrpjbh3ucbml4ylcpna" target="_blank"><i class="fa-brands fa-spotify"></i> SPOTIFY</a>
-                <a href="https://www.tiktok.com/@tr._.sd" target="_blank"><i class="fa-brands fa-tiktok"></i> TIKTOK</a>
-                <a href="https://discord.com/users/1420458027441590382" target="_blank"><i class="fa-brands fa-discord"></i> DISCORD</a>
-                <a href="https://steamcommunity.com/profiles/76561198728B32429/" target="_blank"><i class="fa-brands fa-steam"></i> STEAM</a>
-                <a href="https://github.com/vr3-rt" target="_blank"><i class="fa-brands fa-github"></i> GITHUB</a>
-            </div>
-            <p class="footer-note">✝ Darkness awaits you ✝</p>
-        </div>
-
-        <div class="hud-box bottom-right-bpm">
-            <div class="bpm-header">
-                <span>HEART</span>
-                <span class="bpm-val">BPM 64</span>
-            </div>
-            <div class="ecg-graph">
-                <svg viewBox="0 0 150 40">
-                    <path d="M 0,20 L 30,20 L 35,5 L 40,35 L 45,10 L 50,25 L 55,20 L 150,20" fill="none" stroke="#ff003c" stroke-width="1.5" />
-                </svg>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
     <script>
         const termInput = document.getElementById('terminal-input');
         const termOutput = document.getElementById('terminal-output');
+        let history = [];
+        let index = -1;
 
         termInput.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
                 const cmd = termInput.value.trim().toLowerCase();
-                let response = "";
+                history.push(cmd);
+                index = history.length;
 
-                if (cmd === 'help') {
-                    response = "Available commands: help, socials, status, clear, whoami";
-                } else if (cmd === 'socials') {
-                    response = "Spotify, TikTok, Discord, Steam, GitHub (Check links bar below)";
-                } else if (cmd === 'status') {
-                    response = "System Integrity: 100% | Ping: 14ms | Node: Algeria (DZ)";
-                } else if (cmd === 'whoami') {
-                    response = "TR SD - Architect of Digital Madness";
-                } else if (cmd === 'clear') {
-                    termOutput.innerHTML = "";
-                    termInput.value = "";
-                    return;
-                } else if (cmd === '') {
-                    response = "";
+                let res = "";
+                const parts = cmd.split(' ');
+
+                if (parts[0] === 'theme') {
+                    const color = parts[1] === 'blue' ? '#00d4ff' : '#ff003c';
+                    document.body.style.color = color;
+                    document.querySelectorAll('.spider, .terminal-box').forEach(el => {
+                        el.style.borderColor = color;
+                        el.style.fill = color;
+                    });
+                    res = "System color shifted to: " + parts[1];
+                } else if (parts[0] === 'help') {
+                    res = "Available: theme [blue/red], clear, whoami, status";
+                } else if (parts[0] === 'whoami') {
+                    res = "TR SD // Digital Architect";
                 } else {
-                    response = `command not found: ${cmd}. Type 'help' for options.`;
+                    res = "Command '" + cmd + "' not recognized.";
                 }
 
-                termOutput.innerHTML += `<div><span style="color:#888;">tr@sd:~$</span> ${termInput.value}</div>`;
-                if (response) {
-                    termOutput.innerHTML += `<div style="color:#ff003c; margin-bottom:4px;">${response}</div>`;
-                }
+                termOutput.innerHTML += `<div>> ${cmd}</div><div style="margin-bottom:10px">${res}</div>`;
                 termInput.value = "";
                 termOutput.scrollTop = termOutput.scrollHeight;
             }
-        });
-
-        const bootLogs = [
-            "> INITIALIZING KERNEL_V3...",
-            "> BYPASSING FIREWALL PROTOCOLS...",
-            "> LOADING NEURAL INTERFACE...",
-            "> ACCESS GRANTED. WELCOME TR SD."
-        ];
-        let bootIndex = 0;
-        const bootTextEl = document.getElementById("boot-text");
-        const bootScreenEl = document.getElementById("boot-screen");
-
-        function runBootSequence() {
-            if (bootIndex < bootLogs.length) {
-                bootTextEl.innerHTML += bootLogs[bootIndex] + "<br>";
-                bootIndex++;
-                setTimeout(runBootSequence, 350);
-            } else {
-                setTimeout(() => {
-                    bootScreenEl.style.opacity = "0";
-                    setTimeout(() => bootScreenEl.style.display = "none", 500);
-                }, 400);
-            }
-        }
-        window.addEventListener('DOMContentLoaded', runBootSequence);
-
-        const quotes = [
-            "\"Architect of Digital Madness\"",
-            "\"In the void, code is the only truth\"",
-            "\"System breach in progress...\"",
-            "\"Embrace the digital darkness\"",
-            "\"Lost in the crimson matrix\""
-        ];
-        document.getElementById("cyber-quote").textContent = quotes[Math.floor(Math.random() * quotes.length)];
-
-        let visits = localStorage.getItem('tr_visits') || 1420;
-        if (!sessionStorage.getItem('visited')) {
-            visits++;
-            localStorage.setItem('tr_visits', visits);
-            sessionStorage.setItem('visited', 'true');
-        }
-        document.getElementById("visit-count").textContent = visits;
-
-        function toggleMusic() {
-            var music = document.getElementById("bg-music");
-            var icon = document.getElementById("play-icon");
-            var wave = document.querySelector(".audio-wave");
-            
-            if (music.paused) {
-                music.play();
-                icon.className = "fa-solid fa-pause";
-                wave.classList.add("playing");
-            } else {
-                music.pause();
-                icon.className = "fa-solid fa-play";
-                wave.classList.remove("playing");
-            }
-        }
-
-        function updateClock() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            document.getElementById('clock-time').textContent = `${hours}:${minutes}:${seconds}`;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorOutline = document.querySelector('.cursor-outline');
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 250, fill: "forwards" });
-        });
-
-        const textToType = "TR SD SYSTEMS";
-        let typeIndex = 0;
-        function typeWriter() {
-            if (typeIndex < textToType.length) {
-                document.getElementById("typed-text").innerHTML += textToType.charAt(typeIndex);
-                typeIndex++;
-                setTimeout(typeWriter, 100);
-            }
-        }
-        setTimeout(typeWriter, 1800);
-
-        const canvas = document.getElementById('matrix-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン0123456789ABCDEF';
-        const fontSize = 14;
-        const columns = canvas.width / fontSize;
-        const rainDrops = Array.from({ length: columns }).fill(1);
-
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#ff003c';
-            ctx.font = fontSize + 'px monospace';
-
-            for (let i = 0; i < rainDrops.length; i++) {
-                const text = katakana.charAt(Math.floor(Math.random() * katakana.length));
-                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    rainDrops[i] = 0;
-                }
-                rainDrops[i]++;
-            }
-        }
-        setInterval(drawMatrix, 33);
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
         });
     </script>
 </body>
