@@ -4,81 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SYSTEM.VOID // TR SD</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* إضافة ستايل العناكب المتحركة */
-        .spider {
-            position: fixed; width: 40px; height: 40px; z-index: 100;
-            pointer-events: none; fill: #ff003c;
-            animation: pulse 2s infinite ease-in-out;
+        /* CSS المتكامل */
+        body {
+            background-color: #000;
+            color: #ff003c;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
         }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-        .spider-tl { top: 10px; left: 10px; transform: rotate(180deg); }
-        .spider-tr { top: 10px; right: 10px; transform: rotate(270deg); }
-        .spider-bl { bottom: 10px; left: 10px; transform: rotate(90deg); }
-        .spider-br { bottom: 10px; right: 10px; }
 
-        /* ستايل الترمينال المحدث */
-        .terminal-box { border: 2px solid #ff003c; transition: border-color 0.3s; }
-        .terminal-output { height: 100px; overflow-y: auto; color: #fff; font-family: monospace; }
-        
-        /* بقية الستايلات السابقة (يفضل وضعها في style.css) */
-        body { background: #000; color: #ff003c; font-family: 'Courier New', monospace; }
+        /* تنسيق العناكب */
+        .spider {
+            position: fixed;
+            width: 45px;
+            height: 45px;
+            z-index: 100;
+            pointer-events: none;
+            fill: #ff003c;
+            filter: drop-shadow(0 0 8px #ff003c);
+            animation: spiderPulse 2s infinite ease-in-out;
+        }
+
+        @keyframes spiderPulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 12px #ff003c); }
+        }
+
+        .spider-tl { top: 20px; left: 20px; transform: rotate(180deg); }
+        .spider-tr { top: 20px; right: 20px; transform: rotate(270deg); }
+        .spider-bl { bottom: 20px; left: 20px; transform: rotate(90deg); }
+        .spider-br { bottom: 20px; right: 20px; }
+
+        /* تنسيق الترمينال */
+        .terminal-box {
+            width: 500px;
+            padding: 20px;
+            border: 2px solid #ff003c;
+            background: rgba(10, 0, 0, 0.9);
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.2);
+        }
+
+        #terminal-output {
+            height: 100px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        #terminal-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-family: inherit;
+            outline: none;
+        }
     </style>
 </head>
 <body>
 
-    <!-- العناكب في الزوايا -->
-    <svg class="spider spider-tl" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z" fill="#ff003c"/></svg>
-    <svg class="spider spider-tr" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z" fill="#ff003c"/></svg>
-    <svg class="spider spider-bl" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z" fill="#ff003c"/></svg>
-    <svg class="spider spider-br" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z" fill="#ff003c"/></svg>
+    <!-- العناكب (يجب أن تكون في الـ HTML كما هي هنا) -->
+    <svg class="spider spider-tl" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z"/></svg>
+    <svg class="spider spider-tr" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z"/></svg>
+    <svg class="spider spider-bl" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z"/></svg>
+    <svg class="spider spider-br" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z"/></svg>
 
-    <!-- واجهة الترمينال -->
-    <div class="terminal-section" style="padding-top: 200px; display: flex; justify-content: center;">
-        <div class="hud-box terminal-box" style="width: 500px;">
-            <div id="terminal-output" class="terminal-output"></div>
-            <div class="terminal-input-line">
-                <span>tr@sd:~$</span>
-                <input type="text" id="terminal-input" style="background:transparent; border:none; color:#fff; width: 80%; outline:none;">
-            </div>
-        </div>
+    <!-- الترمينال -->
+    <div class="terminal-box">
+        <div id="terminal-output">System Online... Type 'help' to start.</div>
+        <div>tr@sd:~$ <input type="text" id="terminal-input" autofocus></div>
     </div>
 
     <script>
-        const termInput = document.getElementById('terminal-input');
-        const termOutput = document.getElementById('terminal-output');
-        let history = [];
-        let index = -1;
+        const input = document.getElementById('terminal-input');
+        const output = document.getElementById('terminal-output');
 
-        termInput.addEventListener('keydown', function(e) {
+        input.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
-                const cmd = termInput.value.trim().toLowerCase();
-                history.push(cmd);
-                index = history.length;
-
-                let res = "";
-                const parts = cmd.split(' ');
-
-                if (parts[0] === 'theme') {
-                    const color = parts[1] === 'blue' ? '#00d4ff' : '#ff003c';
-                    document.body.style.color = color;
-                    document.querySelectorAll('.spider, .terminal-box').forEach(el => {
-                        el.style.borderColor = color;
-                        el.style.fill = color;
-                    });
-                    res = "System color shifted to: " + parts[1];
-                } else if (parts[0] === 'help') {
-                    res = "Available: theme [blue/red], clear, whoami, status";
-                } else if (parts[0] === 'whoami') {
-                    res = "TR SD // Digital Architect";
+                const cmd = input.value.trim().toLowerCase();
+                output.innerHTML += `<div>tr@sd:~$ ${cmd}</div>`;
+                
+                if (cmd === 'help') {
+                    output.innerHTML += `<div style="color:#ff003c">Commands: help, whoami, status, clear</div>`;
+                } else if (cmd === 'whoami') {
+                    output.innerHTML += `<div style="color:#ff003c">TR SD // Digital Architect</div>`;
+                } else if (cmd === 'clear') {
+                    output.innerHTML = "";
                 } else {
-                    res = "Command '" + cmd + "' not recognized.";
+                    output.innerHTML += `<div>Command not found.</div>`;
                 }
-
-                termOutput.innerHTML += `<div>> ${cmd}</div><div style="margin-bottom:10px">${res}</div>`;
-                termInput.value = "";
-                termOutput.scrollTop = termOutput.scrollHeight;
+                
+                input.value = "";
+                output.scrollTop = output.scrollHeight;
             }
         });
     </script>
