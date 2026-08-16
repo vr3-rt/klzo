@@ -1,59 +1,78 @@
-body {
-    background-color: #000;
-    color: #ff003c;
-    font-family: 'Courier New', monospace;
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SYSTEM.VOID // TR SD</title>
+    <style>
+        /* CSS STYLING */
+        body {
+            background-color: #000;
+            color: #ff003c;
+            font-family: 'Courier New', monospace;
+            margin: 0; height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden; cursor: none;
+        }
 
-/* Spider Styling */
-.spider {
-    position: fixed;
-    width: 45px;
-    height: 45px;
-    z-index: 100;
-    pointer-events: none;
-    fill: #ff003c;
-    filter: drop-shadow(0 0 8px #ff003c);
-    animation: spiderPulse 2s infinite ease-in-out;
-}
+        /* SPIDERS */
+        .spider {
+            position: fixed; width: 45px; height: 45px; z-index: 100;
+            pointer-events: none; fill: currentColor;
+            filter: drop-shadow(0 0 8px currentColor);
+            animation: pulse 2s infinite ease-in-out;
+        }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .tl { top: 20px; left: 20px; transform: rotate(180deg); }
+        .tr { top: 20px; right: 20px; transform: rotate(270deg); }
+        .bl { bottom: 20px; left: 20px; transform: rotate(90deg); }
+        .br { bottom: 20px; right: 20px; }
 
-@keyframes spiderPulse {
-    0%, 100% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 12px #ff003c); }
-}
+        /* TERMINAL */
+        .term { width: 500px; padding: 20px; border: 2px solid currentColor; background: rgba(10,0,0,0.9); }
+        #out { height: 150px; overflow-y: auto; margin-bottom: 10px; font-size: 0.8rem; }
+        #in { background: transparent; border: none; color: #fff; font-family: inherit; width: 80%; outline: none; }
+    </style>
+</head>
+<body>
 
-.spider-tl { top: 20px; left: 20px; transform: rotate(180deg); }
-.spider-tr { top: 20px; right: 20px; transform: rotate(270deg); }
-.spider-bl { bottom: 20px; left: 20px; transform: rotate(90deg); }
-.spider-br { bottom: 20px; right: 20px; }
+    <!-- SPIDERS -->
+    <svg class="spider tl" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z"/></svg>
+    <svg class="spider tr" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z"/></svg>
+    <svg class="spider bl" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z"/></svg>
+    <svg class="spider br" viewBox="0 0 24 24"><path d="M12 2l-1 2H9l-2 2-1 1-2 2-1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 2h2l1-2 1-1 2-2 1-1 2-2 1-1 1-1-1-1-2-2-1-1-2-2-1-1-1-2h-2z"/></svg>
 
-/* Terminal Styling */
-.terminal-box {
-    width: 500px;
-    padding: 20px;
-    border: 2px solid #ff003c;
-    background: rgba(10, 0, 0, 0.9);
-    box-shadow: 0 0 20px rgba(255, 0, 60, 0.3);
-}
+    <!-- TERMINAL BOX -->
+    <div class="term">
+        <div id="out">System Loaded... Type 'help'.</div>
+        <div>tr@sd:~$ <input type="text" id="in" autofocus></div>
+    </div>
 
-#terminal-output {
-    height: 100px;
-    overflow-y: auto;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-}
+    <script>
+        const input = document.getElementById('in');
+        const output = document.getElementById('out');
+        let history = []; let i = -1;
 
-.input-area { display: flex; gap: 10px; }
-#terminal-input {
-    background: transparent;
-    border: none;
-    color: #fff;
-    font-family: inherit;
-    outline: none;
-    flex: 1;
-}
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const cmd = input.value.trim().toLowerCase();
+                history.push(cmd); i = history.length;
+                output.innerHTML += `<div>> ${cmd}</div>`;
+                
+                if (cmd === 'help') output.innerHTML += `<div>Commands: help, whoami, clear, theme [blue/red]</div>`;
+                else if (cmd === 'whoami') output.innerHTML += `<div>TR SD // Digital Architect</div>`;
+                else if (cmd === 'clear') output.innerHTML = "";
+                else if (cmd.startsWith('theme')) {
+                    const c = cmd.includes('blue') ? '#00d4ff' : '#ff003c';
+                    document.body.style.color = c;
+                    document.querySelector('.term').style.borderColor = c;
+                    document.querySelectorAll('.spider').forEach(s => s.style.fill = c);
+                } else output.innerHTML += `<div>Error: Unknown command.</div>`;
+                
+                input.value = ""; output.scrollTop = output.scrollHeight;
+            }
+            if (e.key === 'ArrowUp' && i > 0) input.value = history[--i];
+            if (e.key === 'ArrowDown' && i < history.length - 1) input.value = history[++i];
+        });
+    </script>
+</body>
+</html>
